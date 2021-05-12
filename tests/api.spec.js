@@ -231,7 +231,7 @@ describe('API', () => {
       });
     });
   });
-  describe('routine_activities', () => {
+  xdescribe('routine_activities', () => {
     let newRoutineActivityData = {routineId: 3, activityId: 8, count: 25, duration: 200};
     describe('PATCH /routine_activities/:routineActivityId (**)', () => {
       it('Updates the count or duration on the routine activity', async () => {
