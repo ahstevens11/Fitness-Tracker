@@ -64,8 +64,8 @@ usersRouter.post('/login', async (req, res, next) => {
             return
         }
 
-    } catch ({name, message}) {
-        next({name, message})
+    } catch ({message}) {
+        next({message})
     }
 })
 
@@ -82,8 +82,8 @@ usersRouter.get("/:username/routines", async (req, res, next) => {
     try {
         const routines = await getPublicRoutinesByUser({username})
         res.send(routines)
-    } catch ({name, message}) {
-        next({name, message})
+    } catch (error) {
+        next(error)
     }
 })
 

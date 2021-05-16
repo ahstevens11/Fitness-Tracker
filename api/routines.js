@@ -1,6 +1,7 @@
 const express = require("express");
 const routinesRouter = express.Router();
 const { requireUser } = require("./utils");
+
 const {
     getAllPublicRoutines,
     getRoutineById,

@@ -20,11 +20,12 @@ async function updateRoutineActivity({id, count, duration}) {
     try {
         const {rows: [updatedRoutineActivity]} = await client.query(`
         UPDATE routine_activities
-        SET count=$1, duration=$2
-        WHERE id=$3
+        SET count=$2, duration=$3
+        WHERE id=$1
         RETURNING *;
-        `, [count, duration, id]);
-
+        `, [id, count, duration]);
+        if (count) updatedRoutineActivity.count = count;
+        if (duration) updatedRoutineActivity.duration = duration;
         return updatedRoutineActivity
     } catch (error) {
         throw error
@@ -71,6 +72,20 @@ async function getRoutineActivityById(id) {
         throw error;
       }
 }
+
+// async function canEditRoutineActivity(routineActivityId, userId) {
+//     try {
+//         const {rows: routineFromRoutineActivity} = await client.query(`
+//         SELECT * 
+//         FROM routine_activities
+//         JOIN routines ON routine_activities."routineId" = routines.id
+//         AND routine_activities.id = $1;
+//         `, [routineActivityId])
+//         return routineFromRoutineActivity.creatorId === userId
+//     } catch (error) {
+//         throw (error)
+//     }
+// }
 
 module.exports = {
     client,

@@ -133,7 +133,6 @@ async function attachActivitiesToRoutines(routines) {
     } catch (error) {
         throw error
     }
-    ///check duration id count return routine.activity.id
   }
 
   async function getPublicRoutinesByActivity({ id }) {
@@ -144,7 +143,8 @@ async function attachActivitiesToRoutines(routines) {
               JOIN users ON routines."creatorId"=users.id
               WHERE "isPublic"=true
               `);
-              return await attachActivitiesToRoutines(routines)
+
+    return await attachActivitiesToRoutines(routines)
     } catch (err) {
       console.error("Unable to get public routines by activity!");
       throw err;
@@ -158,7 +158,6 @@ async function updateRoutine(fields) {
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
-
     try {
         const {rows: [updatedRoutine]} = await client.query(`
         UPDATE routines
